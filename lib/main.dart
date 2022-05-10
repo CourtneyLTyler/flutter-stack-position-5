@@ -24,17 +24,19 @@ class Home extends StatelessWidget {
     final sizeX = MediaQuery.of(context).size.width;
     final sizeY = MediaQuery.of(context).size.height;
     return Container(
-      width: sizeX,
-      height: sizeY,
-      child: ListView.separated(
-        // fit: StackFit.expand,
-        // children: createSquares(25),
-        itemCount: 25,
-        itemBuilder: (context, index) => createSquare(index),
-        separatorBuilder: (context, index) => createSeparator(index),
-        // scrollDirection: Axis.horizontal,
-      ),
-    );
+        width: sizeX,
+        height: sizeY,
+        // child: ListView.separated(
+        //   // fit: StackFit.expand,
+        //   // children: createSquares(25),
+        //   itemCount: 25,
+        //   itemBuilder: (context, index) => createSquare(index),
+        //   separatorBuilder: (context, index) => createSeparator(index),
+        //   // scrollDirection: Axis.horizontal,
+        // ),
+        child: ListView(
+          children: showContacts(),
+        ));
   }
 }
 
@@ -154,4 +156,45 @@ List<Widget> showPizzaLayout(double sizeX, double sizeY) {
   );
   layoutChildren.add(buttonOrder);
   return layoutChildren;
+}
+
+List<Contact> buildContacts() {
+  List<Contact> contacts = [];
+  contacts
+      .add(Contact('Thomas Anderson', 'The Matrix', Icons.sentiment_neutral));
+  contacts.add(
+      Contact('Bruce Wayne', 'The Dark Knight', Icons.sentiment_dissatisfied));
+  contacts.add(
+      Contact('Jamal Malik', 'The Millionaire', Icons.sentiment_satisfied));
+  return contacts;
+}
+
+List<ListTile> showContacts() {
+  List<Contact> contacts = buildContacts();
+  for (int i = 0; i < 20; i++) {
+    contacts.addAll(buildContacts());
+  }
+  List<ListTile> list = [];
+  contacts.forEach((contact) {
+    list.add(
+      ListTile(
+        title: Text(contact.name),
+        subtitle: Text(contact.subtitle),
+        leading: CircleAvatar(
+          backgroundColor: Colors.amber[600],
+          child: Icon(contact.icon),
+        ),
+        trailing: Icon(Icons.keyboard_arrow_right),
+        onTap: () => true,
+      ),
+    );
+  });
+  return list;
+}
+
+class Contact {
+  String name;
+  String subtitle;
+  IconData icon;
+  Contact(this.name, this.subtitle, this.icon);
 }
