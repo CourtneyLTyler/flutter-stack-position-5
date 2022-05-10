@@ -24,19 +24,29 @@ class Home extends StatelessWidget {
     final sizeX = MediaQuery.of(context).size.width;
     final sizeY = MediaQuery.of(context).size.height;
     return Container(
-        width: sizeX,
-        height: sizeY,
-        // child: ListView.separated(
-        //   // fit: StackFit.expand,
-        //   // children: createSquares(25),
-        //   itemCount: 25,
-        //   itemBuilder: (context, index) => createSquare(index),
-        //   separatorBuilder: (context, index) => createSeparator(index),
-        //   // scrollDirection: Axis.horizontal,
-        // ),
-        child: ListView(
-          children: showContacts(),
-        ));
+      width: sizeX,
+      height: sizeY,
+      // child: ListView.separated(
+      //   // fit: StackFit.expand,
+      //   // children: createSquares(25),
+      //   itemCount: 25,
+      //   itemBuilder: (context, index) => createSquare(index),
+      //   separatorBuilder: (context, index) => createSeparator(index),
+      //   // scrollDirection: Axis.horizontal,
+      // ),
+      // child: ListView(
+      //   children: showContacts(),
+      // ));
+      child: GridView.count(
+        // how many cells show in the non-scroll direction (horizontally here)
+        crossAxisCount: 3,
+        scrollDirection: Axis.vertical,
+        children: createSquares(50),
+        mainAxisSpacing: 5.0,
+        crossAxisSpacing: 5.0,
+        padding: EdgeInsets.all(5),
+      ),
+    );
   }
 }
 
@@ -50,11 +60,11 @@ List<Widget> createSquares(int numSquares) {
     Colors.lightBlue
   ];
   List<Widget> squares = [];
-  squares.add(
-    Container(
-      color: Colors.black,
-    ),
-  );
+  // squares.add(
+  //   Container(
+  //     color: Colors.black,
+  //   ),
+  // );
   while (i < numSquares) {
     Positioned square = Positioned(
         top: 100 + i.toDouble() * 100,
