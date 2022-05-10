@@ -28,7 +28,7 @@ class Home extends StatelessWidget {
       height: sizeY,
       child: Stack(
         // fit: StackFit.expand,
-        children: createSquares(5),
+        children: showPizzaLayout(sizeX, sizeY),
       ),
     );
   }
@@ -63,4 +63,65 @@ List<Widget> createSquares(int numSquares) {
     squares.add(square);
   }
   return squares;
+}
+
+List<Widget> showPizzaLayout(double sizeX, double sizeY) {
+  List<Widget> layoutChildren = [];
+  Container backGround = Container(
+    decoration: BoxDecoration(
+      image: DecorationImage(
+          image: NetworkImage(
+              'https://media.istockphoto.com/photos/pizza-with-very-much-cheese-melting-picture-id1269122740?k=20&m=1269122740&s=612x612&w=0&h=8BN_S6Z3R9ACEq-xIjewm9E4Jn0gaDSW-fF2wmWKTpA='),
+          fit: BoxFit.fitHeight),
+    ),
+  );
+  layoutChildren.add(backGround);
+  Positioned pizzaCard = Positioned(
+    top: sizeY / 20,
+    left: sizeX / 20,
+    child: Card(
+      elevation: 12,
+      color: Colors.white70,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: Column(
+        children: [
+          Text(
+            'Pizza Margharita',
+            style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.deepOrange[800]),
+          ),
+          Padding(
+            padding: EdgeInsets.all(12),
+            child: Text(
+              'This delicious pizza is made of Tomato, Basil, and Mozarella',
+              style: TextStyle(fontSize: 18, color: Colors.grey[800]),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+  layoutChildren.add(pizzaCard);
+  Positioned buttonOrder = Positioned(
+    bottom: sizeY / 20,
+    left: sizeX - sizeX / 10,
+    child: ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        elevation: 12,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        primary: Colors.orange[900],
+      ),
+      child: Text(
+        'Order Now!',
+        style: TextStyle(fontSize: 20, color: Colors.white),
+      ),
+      onPressed: () {},
+    ),
+  );
+  layoutChildren.add(buttonOrder);
+  return layoutChildren;
 }
