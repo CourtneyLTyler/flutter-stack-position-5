@@ -26,9 +26,13 @@ class Home extends StatelessWidget {
     return Container(
       width: sizeX,
       height: sizeY,
-      child: Stack(
+      child: ListView.separated(
         // fit: StackFit.expand,
-        children: showPizzaLayout(sizeX, sizeY),
+        // children: createSquares(25),
+        itemCount: 25,
+        itemBuilder: (context, index) => createSquare(index),
+        separatorBuilder: (context, index) => createSeparator(index),
+        // scrollDirection: Axis.horizontal,
       ),
     );
   }
@@ -54,15 +58,41 @@ List<Widget> createSquares(int numSquares) {
         top: 100 + i.toDouble() * 100,
         left: 25 + i.toDouble() * 25,
         child: Container(
-          color: colors[i],
-          width: 60.0 * (numSquares - i),
-          height: 60.0 * (numSquares - i),
+          color: colors[i % 5],
+          // width: 60.0 * (numSquares - i),
+          // height: 60.0 * (numSquares - i),
+          width: 100,
+          height: 100.0,
           child: Text(i.toString()),
         ));
     i++;
     squares.add(square);
   }
   return squares;
+}
+
+Widget createSquare(int position) {
+  List colors = [
+    Colors.amber,
+    Colors.deepPurple,
+    Colors.deepOrange,
+    Colors.indigo,
+    Colors.lightBlue
+  ];
+  Container square = Container(
+    color: colors[position % 5],
+    // width: 60.0 * (numSquares - i),
+    // height: 60.0 * (numSquares - i),
+    width: 100,
+    height: 100.0,
+    child: Text(position.toString()),
+  );
+  return square;
+}
+
+Widget createSeparator(int position) {
+  Widget separator = Container(height: 15, color: Colors.black);
+  return separator;
 }
 
 List<Widget> showPizzaLayout(double sizeX, double sizeY) {
