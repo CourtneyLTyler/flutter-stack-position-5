@@ -39,9 +39,9 @@ class Home extends StatelessWidget {
       // ));
       child: GridView.count(
         // how many cells show in the non-scroll direction (horizontally here)
-        crossAxisCount: 3,
+        crossAxisCount: 2,
         scrollDirection: Axis.vertical,
-        children: createSquares(50),
+        children: createGallery(50),
         mainAxisSpacing: 5.0,
         crossAxisSpacing: 5.0,
         padding: EdgeInsets.all(5),
@@ -207,4 +207,32 @@ class Contact {
   String subtitle;
   IconData icon;
   Contact(this.name, this.subtitle, this.icon);
+}
+
+List<Widget> createGallery(int numImages) {
+  List<Widget> images = [];
+  List<String> urls = [];
+  urls.add(
+      'https://images.freeimages.com/images/small-previews/e07/car-1568850.jpg');
+  urls.add(
+      'https://images.freeimages.com/images/small-previews/a25/japanes-car-1449114.jpg');
+  urls.add('http://bit.ly/gv_car_3');
+  urls.add('http://bit.ly/gv_car_4');
+  urls.add('http://bit.ly/gv_car_5');
+  Widget image;
+  int i = 0;
+  while (i < numImages) {
+    image = Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: NetworkImage(urls[i % 5]),
+          fit: BoxFit.contain,
+        ),
+      ),
+      // child: Image.network(urls[i % 5]),
+    );
+    images.add(image);
+    i++;
+  }
+  return images;
 }
